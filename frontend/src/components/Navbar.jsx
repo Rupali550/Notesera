@@ -24,6 +24,14 @@ const Navbar = () => {
           <Link to="/articles" className="hover:text-indigo-600">
             Articles
           </Link>
+           {/* 🔥 Create Blog */}
+          <Link
+            to="/create-blog"
+            className="hover:text-indigo-600"
+          >
+            Create Blog
+          </Link>
+
           <Link to="/create" className="hover:text-indigo-600">
             Write
           </Link>
@@ -63,6 +71,7 @@ const Navbar = () => {
           <Link to="/articles" onClick={() => setOpen(false)} className="block">
             Articles
           </Link>
+           
           <Link to="/create" onClick={() => setOpen(false)} className="block">
             Write
           </Link>
