@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
 
+import blog1 from "../assets/blog1.jpg";
+import blog2 from "../assets/blog2.jpg";
+
+
 const blogs = [
   {
     id: 1,
@@ -7,7 +11,7 @@ const blogs = [
     desc: "Master React with hands-on projects and industry patterns.",
     author: "Rupali Bharti",
     date: "August 12, 2025",
-    imageUrl: "/images/blog1.jpg",
+    imageUrl: blog1,
   },
   {
     id: 2,
@@ -15,7 +19,7 @@ const blogs = [
     desc: "Explore why the MERN stack is widely adopted by companies.",
     author: "NotesEra",
     date: "August 10, 2025",
-    imageUrl: "/images/blog2.jpg",
+    imageUrl: blog2,
   },
   {
     id: 3,
@@ -23,7 +27,7 @@ const blogs = [
     desc: "Compare Tailwind and traditional CSS for web projects.",
     author: "Admin",
     date: "August 8, 2025",
-    imageUrl: "/images/blog3.jpg",
+    imageUrl: blog1,
   },
 ];
 
