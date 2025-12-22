@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 import blog1 from "../assets/blog1.jpg";
 import blog2 from "../assets/blog2.jpg";
 
@@ -91,3 +92,22 @@ const Home = () => {
 };
 
 export default Home;
+
+/*
+
+
+import { useAuth } from "../context/AuthContext";
+
+const Home = () => {
+  const { user } = useAuth();   // ✅ ONLY HERE
+
+  return (
+    <div>
+      <h1>Home Page</h1>
+      <p>Role: {user.role}</p>
+    </div>
+  );
+};
+
+export default Home;
+*/

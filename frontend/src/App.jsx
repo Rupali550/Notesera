@@ -7,6 +7,7 @@ import Signup from './pages/Signup'
 import BlogDetails from './pages/BlogDetails'
 import Dashboard from './pages/Dashboard'
 import CreateBlog from './pages/CreateBlog'
+import AdminRoute from "./components/AdminRoute"
 function App(){
   return(
     <>
@@ -18,12 +19,12 @@ function App(){
        <Route path = '/login' element = {<Login />}/>
        <Route path = '/signup' element = {<Signup/>}/>
        <Route path = '/blog/:id' element = {<BlogDetails />}/>
-       <Route path="/create-blog" element={<CreateBlog />} />
-       <Route path = '/dashboard' element = {<Dashboard/>}/>
+       <Route path="/create-blog" element={<AdminRoute><CreateBlog /></AdminRoute>} />
+       <Route path = '/dashboard' element = {<AdminRoute><Dashboard/></AdminRoute>}/>
       </Routes>
 
       <Footer/>
      </>
   )
 }
-export default App
+export default App;
