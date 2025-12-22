@@ -1,45 +1,73 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // 🔐 TEMP login (backend later)
+    const userData = {
+      name: "Rupali Bharti",
+      role: formData.email.includes("admin") ? "admin" : "user",
+    };
+
+    login(userData);
+    navigate("/");
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-white px-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
-        
-        <h2 className="text-3xl font-bold text-center text-indigo-600">
-          Welcome Back
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center text-gray-800">
+          Login to NotesEra
         </h2>
-        <p className="text-center text-gray-500 mt-2">
-          Login to continue reading & writing
-        </p>
 
-        <form className="mt-8 space-y-5">
-          <div>
-            <label className="text-sm text-gray-600">Email</label>
-            <input
-              type="email"
-              placeholder="you@example.com"
-              className="w-full mt-1 px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="space-y-5 mt-6">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-4 py-3"
+            required
+          />
 
-          <div>
-            <label className="text-sm text-gray-600">Password</label>
-            <input
-              type="password"
-              placeholder="********"
-              className="w-full mt-1 px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-4 py-3"
+            required
+          />
 
-          <button className="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition">
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700"
+          >
             Login
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm mt-4">
           Don’t have an account?{" "}
           <Link to="/signup" className="text-indigo-600 font-medium">
-            Sign Up
+            Signup
           </Link>
         </p>
       </div>

@@ -1,100 +1,64 @@
 import { Link } from "react-router-dom";
+import blog1 from "../assets/blog1.jpg";
+import blog2 from "../assets/blog2.jpg";
 
 const articles = [
   {
     id: 1,
     title: "Learn React Step by Step",
-    desc: "A complete beginner-to-advanced guide for learning React.",
     author: "Rupali Bharti",
     date: "Aug 12, 2025",
-    tag: "React",
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+    imageUrl: blog1,
   },
   {
     id: 2,
     title: "Why MERN Stack is Popular",
-    desc: "Understand why MERN stack is widely used in startups.",
     author: "NotesEra",
     date: "Aug 10, 2025",
-    tag: "MERN",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-  },
-  {
-    id: 3,
-    title: "Tailwind vs CSS",
-    desc: "Which one should you choose for modern web apps?",
-    author: "Admin",
-    date: "Aug 08, 2025",
-    tag: "CSS",
-    image: "https://images.unsplash.com/photo-1517433456452-f9633a875f6f",
+    imageUrl: blog2,
   },
 ];
 
 const AllArticles = () => {
   return (
-    <div className="bg-gray-50 min-h-screen">
-      
-      {/* HERO */}
-      <section className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-6 py-20">
-          <h1 className="text-5xl font-extrabold text-gray-800">
+    <div className="bg-white min-h-screen px-6 py-12">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-10">
+          <h1 className="text-3xl font-bold text-gray-800">
             All Articles
           </h1>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl">
-            Browse all articles related to web development, design, and tech.
-          </p>
-
-          <p className="mt-6 text-sm text-gray-500">
-            {articles.length} Articles Published
-          </p>
+          <input
+            type="text"
+            placeholder="Search articles..."
+            className="border rounded-lg px-4 py-2"
+          />
         </div>
-      </section>
 
-      {/* ARTICLES GRID */}
-      <section className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+        {/* List View */}
+        <div className="space-y-6">
           {articles.map((article) => (
-            <div
+            <Link
+              to={`/blog/${article.id}`}
               key={article.id}
-              className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
+              className="flex gap-6 border-b pb-6 hover:bg-gray-50 transition"
             >
-              {/* Image */}
               <img
-                src={article.image}
-                alt={article.title}
-                className="h-52 w-full object-cover"
+                src={article.imageUrl}
+                className="w-36 h-24 object-cover rounded-lg"
               />
-
-              {/* Content */}
-              <div className="p-6">
-                <span className="inline-block mb-3 text-xs font-semibold text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full">
-                  {article.tag}
-                </span>
-
-                <h2 className="text-xl font-bold text-gray-800 mb-2 hover:text-indigo-600 transition">
+              <div>
+                <h2 className="text-xl font-semibold text-gray-800">
                   {article.title}
                 </h2>
-
-                <p className="text-sm text-gray-600 mb-4">
-                  {article.desc}
+                <p className="text-sm text-gray-500 mt-1">
+                  {article.author} • {article.date}
                 </p>
-
-                <div className="flex justify-between items-center text-xs text-gray-500">
-                  <span>✍ {article.author}</span>
-                  <span>{article.date}</span>
-                </div>
-
-                <Link
-                  to={`/blog/${article.id}`}
-                  className="inline-block mt-5 text-sm font-medium text-indigo-600 hover:underline"
-                >
-                  Read Article →
-                </Link>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 };

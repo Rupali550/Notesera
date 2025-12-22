@@ -1,139 +1,93 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const CreateBlog = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
-    category: "",
+    desc: "",
     content: "",
-    image: null,
+    image: "",
   });
 
+  // 🔒 Admin protection
+  if (user?.role !== "admin") {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-xl font-semibold text-red-500">
+        Access Denied 🚫
+      </div>
+    );
+  }
+
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    alert("Blog submitted (frontend only)");
+
+    console.log("Blog Data:", formData);
+
+    alert("Blog Created Successfully ✅");
+    navigate("/");
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-6">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8">
-        
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
-          Create New Blog
+    <div className="min-h-screen bg-gray-50 py-16 px-6">
+      <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">
+          ✍ Create New Blog
         </h1>
-        <p className="text-sm text-gray-500 mb-8">
-          Write and publish your article on NotesEra
-        </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          
-          {/* Title */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Blog Title
-            </label>
-            <input
-              type="text"
-              name="title"
-              placeholder="Enter blog title"
-              value={formData.title}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
-            />
-          </div>
+          <input
+            type="text"
+            name="title"
+            placeholder="Blog Title"
+            value={formData.title}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500"
+            required
+          />
 
-          {/* Description */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Short Description
-            </label>
-            <input
-              type="text"
-              name="description"
-              placeholder="Short summary of blog"
-              value={formData.description}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
-            />
-          </div>
+          <input
+            type="text"
+            name="image"
+            placeholder="Image URL / public path"
+            value={formData.image}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-4 py-3"
+          />
 
-          {/* Category */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Category
-            </label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border rounded-lg bg-white focus:ring-2 focus:ring-indigo-500 outline-none"
-            >
-              <option value="">Select category</option>
-              <option>React</option>
-              <option>MERN Stack</option>
-              <option>Tailwind CSS</option>
-              <option>JavaScript</option>
-              <option>Interview Prep</option>
-            </select>
-          </div>
+          <textarea
+            name="desc"
+            placeholder="Short Description"
+            rows="3"
+            value={formData.desc}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-4 py-3"
+            required
+          />
 
-          {/* Content */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Blog Content
-            </label>
-            <textarea
-              name="content"
-              rows="8"
-              placeholder="Write your blog content here..."
-              value={formData.content}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border rounded-lg resize-none focus:ring-2 focus:ring-indigo-500 outline-none"
-            />
-          </div>
+          <textarea
+            name="content"
+            placeholder="Full Blog Content..."
+            rows="8"
+            value={formData.content}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-4 py-3"
+            required
+          />
 
-          {/* Image Upload */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Blog Cover Image
-            </label>
-            <input
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={handleChange}
-              className="w-full text-sm"
-            />
-          </div>
-
-          {/* Submit */}
-          <div className="flex justify-end gap-4 pt-4">
-            <button
-              type="reset"
-              className="px-6 py-2 border rounded-lg text-gray-700 hover:bg-gray-100"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-            >
-              Publish Blog
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700"
+          >
+            Publish Blog 🚀
+          </button>
         </form>
       </div>
     </div>

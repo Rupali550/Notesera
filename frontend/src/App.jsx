@@ -7,6 +7,7 @@ import Signup from './pages/Signup'
 import BlogDetails from './pages/BlogDetails'
 import Dashboard from './pages/Dashboard'
 import CreateBlog from './pages/CreateBlog'
+import AllArticles from "./pages/AllArticles";
 import AdminRoute from "./components/AdminRoute"
 function App(){
   return(
@@ -21,6 +22,8 @@ function App(){
        <Route path = '/blog/:id' element = {<BlogDetails />}/>
        <Route path="/create-blog" element={<AdminRoute><CreateBlog /></AdminRoute>} />
        <Route path = '/dashboard' element = {<AdminRoute><Dashboard/></AdminRoute>}/>
+       <Route path="/all-articles" element={<AllArticles />} />
+
       </Routes>
 
       <Footer/>
